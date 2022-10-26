@@ -1,23 +1,53 @@
-import logo from './logo.svg';
-import './App.css';
+import { Button, TextField } from "@mui/material";
+// import { useCallback } from "react";
+import { useEffect } from "react";
+import { useState } from "react";
+import "./App.css";
 
 function App() {
+  const [city, setCity] = useState("");
+  const [data, setData] = useState([]);
+  const [input, setInput] = useState("");
+  const api = "https://api.openweathermap.org/data/2.5/weather?q=";
+  const apiKey = "8117b6b7404a65e51ebec28f012f66cd";
+
+  useEffect(() => {
+    fetch(`${api}${city}&appid=${apiKey}`)
+      .then((res) => res.json())
+      .then((rawData) => {
+        return setData(rawData);
+      })
+      .catch((err) => {
+        return console.log(err);
+      });
+  }, [city]);
+  const OnCheck = () => {
+    setCity(input);
+    setInput("");
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='App'>
+      <h1>Temperature Your city</h1>
+      <TextField
+        id='outlined-basic'
+        label='Enter city name'
+        variant='outlined'
+        onChange={(e) => setInput(e.target.value)}
+      />
+      <br />
+      <br />
+      <Button
+        variant='contained'
+        color='secondary'
+        onClick={OnCheck}
+        size='large'
+      >
+        Check
+      </Button>
+      <h2>
+        Current temperature of {city} is {data?.main?.temp}
+      </h2>
     </div>
   );
 }
