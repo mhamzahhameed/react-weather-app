@@ -28,7 +28,7 @@ function App() {
 
   return (
     <div className='App'>
-      <h1>Temperature Your city</h1>
+      <h1>Temperature of Your city</h1>
       <TextField
         id='outlined-basic'
         label='Enter city name'
