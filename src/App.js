@@ -21,6 +21,7 @@ function App() {
         return console.log(err);
       });
   }, [city]);
+  console.log(data);
   const OnCheck = () => {
     setCity(input);
     setInput("");
@@ -46,7 +47,8 @@ function App() {
         Check
       </Button>
       <h2>
-        Current temperature of {city} is {data?.main?.temp}
+        Current temperature of {city} is{" "}
+        {(data?.main?.temp - 273.15).toFixed(1)}
       </h2>
     </div>
   );
