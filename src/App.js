@@ -1,35 +1,32 @@
 import { Button, TextField } from "@mui/material";
-// import { useCallback } from "react";
-import { useState } from "react";
-import "./App.css";
+import { useCallback, useState } from "react";
 import { OutlinedCard } from "./Components/cards/Card";
+import { CURRENT_WEATHER } from "./data/remote/Urls";
+import { WEB_HANDLER } from "./data/remote/WebHandler";
+import "./App.css";
 
 function App() {
   const [city, setCity] = useState("");
   const [data, setData] = useState({});
-  const api = "https://api.openweathermap.org/data/2.5/weather?q=";
-  const apiKey = "8117b6b7404a65e51ebec28f012f66cd";
 
-  const onClickHandler = (e) => {
-    if (e?.key === "Enter" || e?.type === "click") {
-      fetch(`${api}${city}&appid=${apiKey}`)
-        .then((res) => res.json())
-        .then((rawData) => {
-          setData(rawData);
-        })
-        .catch((err) => {
-          return console.log(err);
-        });
-    }
-  };
+  const onClickHandler = useCallback(() => {
+    WEB_HANDLER(
+      `${CURRENT_WEATHER}${city}`,
+      (data) => {
+        setData(data);
+      },
+      () => {}
+    );
+  }, [city]);
 
   return (
     <div className='App'>
       <TextField
-        id='standard-search'
+        id='outlined-search'
         label='Search field'
         type='search'
-        variant='standard'
+        variant='outlined'
+        size='large'
         sx={{ mt: "4%" }}
         onChange={(e) => setCity(e.target.value)}
       />
