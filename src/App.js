@@ -1,4 +1,4 @@
-import { Button, TextField } from "@mui/material";
+import { Button, TextField, Typography } from "@mui/material";
 import { useCallback, useState } from "react";
 import { OutlinedCard } from "./Components/cards/Card";
 import { CURRENT_WEATHER } from "./data/remote/Urls";
@@ -21,13 +21,17 @@ function App() {
 
   return (
     <div className='App'>
+      <Typography sx={{ fontSize: 24, mt: "3%" }} variant='h2' gutterBottom>
+        {" "}
+        <strong>Weather App</strong>
+      </Typography>
       <TextField
         id='outlined-search'
-        label='Search field'
+        label='Search by City Name'
         type='search'
         variant='outlined'
         size='large'
-        sx={{ mt: "4%" }}
+        sx={{ mt: "2%" }}
         onChange={(e) => setCity(e.target.value)}
       />
 
