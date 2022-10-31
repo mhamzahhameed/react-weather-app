@@ -1,23 +1,40 @@
 import { Button, TextField, Typography } from "@mui/material";
-import { useCallback, useState } from "react";
-import { OutlinedCard } from "./Components/cards/Card";
-import { CURRENT_WEATHER } from "./data/remote/Urls";
+import { useState } from "react";
+import { CurrentCard } from "./Components/cards/CurrentCard";
+import { CURRENT_WEATHER, DAY_WAETHER } from "./data/remote/Urls";
 import { WEB_HANDLER } from "./data/remote/WebHandler";
 import "./App.css";
+import { DayCard } from "./Components/cards/DayCards";
 
 function App() {
   const [city, setCity] = useState("");
-  const [data, setData] = useState({});
+  const [current_Data, setCurrentData] = useState({});
+  const [day_Data, setDayData] = useState({});
 
-  const onClickHandler = useCallback(() => {
+  const current_Hanlder = () => {
     WEB_HANDLER(
       `${CURRENT_WEATHER}${city}`,
       (data) => {
-        setData(data);
+        setCurrentData(data);
       },
       () => {}
     );
-  }, [city]);
+  };
+  const day_Hanlder = () => {
+    WEB_HANDLER(
+      `${DAY_WAETHER}${city}`,
+      (data) => {
+        setDayData(data);
+      },
+      () => {}
+    );
+  };
+  const checkButton = () => {
+    day_Hanlder();
+    current_Hanlder();
+  };
+
+  console.log(day_Data);
 
   return (
     <div className='App'>
@@ -34,18 +51,19 @@ function App() {
         sx={{ mt: "2%" }}
         onChange={(e) => setCity(e.target.value)}
       />
-
-      <br />
-      <br />
       <Button
         variant='contained'
         color='secondary'
-        onClick={onClickHandler}
+        onClick={checkButton}
         size='large'
+        sx={{ mt: "2%" }}
       >
         Check
       </Button>
-      {data?.main && <OutlinedCard data={data} city={city} />}
+      <br />
+      <br />
+      {current_Data?.main && <CurrentCard current_Data={current_Data} />}
+      {day_Data?.city && <DayCard day_Data={day_Data} />}
     </div>
   );
 }

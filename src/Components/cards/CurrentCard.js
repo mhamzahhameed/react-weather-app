@@ -4,23 +4,23 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 
-export const OutlinedCard = (props) => {
-  const { data } = props;
+export const CurrentCard = (props) => {
+  const { current_Data } = props;
 
   const card = (
     <React.Fragment>
       <CardContent>
         <Typography sx={{ fontSize: 24 }} variant='h4' gutterBottom>
           {" "}
-          <strong>{data?.weather[0]?.main}</strong>
+          <strong>{current_Data?.weather[0]?.main}</strong>
         </Typography>
         <Typography variant='h4' component='div'>
-          {data?.name}
+          {current_Data?.name}
           {","}
-          {data?.sys?.country}
+          {current_Data?.sys?.country}
         </Typography>
         <Typography sx={{ mb: 1.5 }} variant='h3' color='text.secondary'>
-          {(data?.main?.temp - 273.15).toFixed(1)}
+          {(current_Data?.main?.temp - 273.15).toFixed(1)}
           <sup>&deg;</sup>
         </Typography>
       </CardContent>
