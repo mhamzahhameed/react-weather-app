@@ -30,7 +30,7 @@ export const DayCard = (props) => {
       >
         {day_Data?.list?.map((item, index) => (
           <Grid xs={3} sm={4} md={3} key={index}>
-            <Item sx={{ opacity: "0.5" }}>
+            <Item sx={{ opacity: "0.6" }}>
               <CardContent>
                 <Typography sx={{ fontSize: 24 }} variant='h4' gutterBottom>
                   {" "}
@@ -55,7 +55,6 @@ export const DayCard = (props) => {
                   color='text.secondary'
                 >
                   {item?.dt_txt}
-                  <sup>&deg;</sup>
                 </Typography>
               </CardContent>
             </Item>
